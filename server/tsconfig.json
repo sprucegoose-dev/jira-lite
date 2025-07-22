@@ -1,0 +1,52 @@
+{
+    "ts-node": {
+        "require": ["tsconfig-paths/register"]
+    },
+    "compilerOptions": {
+        "target": "es2017",
+        "module": "commonjs",
+        "lib": [
+            "esnext",
+            "dom"
+        ],
+        "jsx": "react-jsx",
+        "noEmit": false,
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "experimentalDecorators": true,
+        "strictPropertyInitialization": false,
+        "emitDecoratorMetadata": true,
+        "allowJs": true,
+        "outDir": "dist",
+        "strictNullChecks": false,
+        "typeRoots": [
+            "src/interfaces",
+            "node_modules/@types"
+        ],
+        "baseUrl": "./",
+        "paths": {
+          "@controllers/*": ["src/controllers/*"],
+          "@database/*": ["database/*"],
+          "@helpers/*": ["src/helpers/*"],
+          "@middleware/*": ["src/middleware/*"],
+          "@models/*": ["src/models/*"],
+          "@services/*": ["src/services/*"],
+          "@tasks/*": ["src/tasks/*"],
+          "@interfaces/*": ["src/interfaces/*"],
+          "@jest.setup": ["jest.setup"]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "coverage",
+        "database/migrations",
+        "database/seeders",
+        "dist"
+    ]
+}
