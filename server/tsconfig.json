@@ -37,8 +37,6 @@
           "@middleware/*": ["src/middleware/*"],
           "@models/*": ["src/models/*"],
           "@services/*": ["src/services/*"],
-          "@tasks/*": ["src/tasks/*"],
-          "@interfaces/*": ["src/interfaces/*"],
           "@jest.setup": ["jest.setup"]
         }
     },

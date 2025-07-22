@@ -3,7 +3,7 @@ import {
 	Column,
 	Model,
 	Table,
- } from 'sequelize-typescript';
+} from 'sequelize-typescript';
 import Status from './status.model';
 import User from './user.model';
 
@@ -22,26 +22,26 @@ export default class Task extends Model {
 	description: string;
 
 	@Column({
-        field: 'assignee_id',
-        references: {
-            model: User,
-            key: 'id',
-        }
-    })
-    assigneeId: number;
+		field: 'assignee_id',
+		references: {
+			model: User,
+			key: 'id',
+		}
+	})
+	assigneeId: number;
 
 	@Column({
-        field: 'status_id',
-        references: {
-            model: Status,
-            key: 'id',
-        }
-    })
-    statusId: number;
+		field: 'status_id',
+		references: {
+			model: Status,
+			key: 'id',
+		}
+	})
+	statusId: number;
 
-    @BelongsTo(() => User, 'assigneId')
-    card: User;
+	@BelongsTo(() => User, 'assigneId')
+	assignee: User;
 
-    @BelongsTo(() => Status, 'statusId')
-    region: Status;
+	@BelongsTo(() => Status, 'statusId')
+	status: Status;
 }

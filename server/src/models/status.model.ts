@@ -3,7 +3,7 @@ import {
 	Model,
 	Table,
 	Unique,
- } from 'sequelize-typescript';
+} from 'sequelize-typescript';
 
 @Table({
 	tableName: 'statuses',

@@ -1,29 +1,34 @@
 import {
-  Column,
-  Model,
-  Table,
+	Column,
+	Model,
+	Table,
 } from 'sequelize-typescript';
 
 @Table({
-  tableName: 'users',
-  timestamps: true,
+	tableName: 'users',
+	timestamps: true,
+	defaultScope: {
+		attributes: {
+			exclude: ['password'],
+		},
+	},
 })
 export default class User extends Model {
-  @Column({ primaryKey: true, autoIncrement: true })
-  id: number;
+	@Column({ primaryKey: true, autoIncrement: true })
+	id: number;
 
-  @Column
-  username: string;
+	@Column
+	username: string;
 
-  @Column
-  first_name: string;
+	@Column
+	first_name: string;
 
-  @Column
-  last_name: string;
+	@Column
+	last_name: string;
 
-  @Column
-  email: string;
+	@Column
+	email: string;
 
-  @Column
-  password: string;
+	@Column
+	password: string;
 }
