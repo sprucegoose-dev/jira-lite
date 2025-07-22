@@ -3,8 +3,8 @@ import Task from '../models/task.model';
 
 export default class TaskService {
 
-	static async updateTask(taskId: number, payload: ITaskPayload) {
-		// TODO: validate parameters
+	static async update(taskId: number, payload: ITaskPayload) {
+		// TODO: validate parameters and valid state transitions
 		// TODO: add error handling
 
 		const task = await Task.update(
@@ -19,5 +19,13 @@ export default class TaskService {
 		return task;
 	}
 
-
+	static async delete(taskId: number) {
+		await Task.destroy(
+			{
+				where: {
+					id: taskId,
+				},
+			}
+		);
+	}
 }

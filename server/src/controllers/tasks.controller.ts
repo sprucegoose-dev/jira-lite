@@ -29,9 +29,17 @@ class TasksController {
 		const taskId = req.params.id;
 		const payload = req.body as ITaskPayload;
 
-		const task = await TaskService.updateTask(parseInt(taskId, 10), payload);
+		const task = await TaskService.update(parseInt(taskId, 10), payload);
 
 		res.send(task);
+    }
+
+	async deleteTask(req: Request, res: Response) {
+		const taskId = req.params.id;
+
+		await TaskService.delete(parseInt(taskId, 10));
+
+		res.send();
     }
 }
 
