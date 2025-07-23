@@ -103,6 +103,13 @@ export default function TaskForm({ open, onClose, statuses, task }: IModalProps)
     }
   };
 
+  const handleDelete = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+   	await api.request(Method.DELETE, `/task/${taskId}`);
+	onClose();
+  };
+
   return (
     <Modal open={open} onClose={onClose}>
       <Box
@@ -172,6 +179,11 @@ export default function TaskForm({ open, onClose, statuses, task }: IModalProps)
         <Button variant="contained" type="submit" disabled={!title || !statusId}>
           {`${task ? 'Update' : 'Create'} Task`}
         </Button>
+		{task &&
+			<Button variant="text" onClick={handleDelete}>
+				Delete Task
+			</Button>
+		}
       </Box>
     </Modal>
   );
