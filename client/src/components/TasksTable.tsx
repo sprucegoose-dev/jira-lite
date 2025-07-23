@@ -1,34 +1,19 @@
 import { Chip, Paper } from '@mui/material';
-import { useEffect, useState } from 'react';
 
-import api from '../api/Api';
-import { Method } from '../api/Api.types';
 import { IStatus, ITaskResponse } from '../../../shared/interfaces';
 import './TasksTable.scss';
+import TaskPreview from './TaskPreview';
+
+interface ITasksTableProps {
+	tasks: ITaskResponse[];
+	statuses: IStatus[];
+}
 
 const statusToClass = (statusType: string) => {
 	return statusType.toLowerCase().replace('_', '-');
 }
 
-export default function TasksTable() {
-	const [statuses, setStatuses] = useState<IStatus[]>([]);
-	const [tasks, setTasks] = useState<ITaskResponse[]>([]);
-
-	useEffect(() => {
-		const fetchStatuses = async () => {
-			const response = await api.request(Method.GET, '/status');
-			setStatuses(await response.json());
-		};
-
-		const fetchTasks = async () => {
-			const response = await api.request(Method.GET, '/task');
-			setTasks(await response.json());
-		};
-
-		fetchStatuses();
-		fetchTasks();
-	}, []);
-
+export default function TasksTable({ tasks, statuses }: ITasksTableProps) {
 	const groupedTasks = tasks.reduce((acc: { [key: string]: ITaskResponse[] }, task) => {
 		if (acc[task.status.status]) {
 			acc[task.status.status].push(task);
@@ -37,10 +22,6 @@ export default function TasksTable() {
 		}
 		return acc;
 	}, {});
-
-	if (!statuses.length) {
-		return null;
-	}
 
 	return (
 		<div className="grid">
@@ -54,7 +35,10 @@ export default function TasksTable() {
 						/>
 						<div className="task-list">
 							{groupedTasks[status.status] && groupedTasks[status.status].map(task =>
-								<div> {task.title} </div>
+								<TaskPreview
+									title={task.title}
+									description={task.description}
+								/>
 							)}
 						</div>
 					</Paper>

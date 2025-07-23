@@ -25,6 +25,14 @@ class TasksController {
         res.send(tasks);
     }
 
+	async createTask(req: Request, res: Response) {
+		const payload = req.body as ITaskPayload;
+
+		const task = await TaskService.create(payload);
+
+		res.send(task);
+    }
+
 	async updateTask(req: Request, res: Response) {
 		const taskId = req.params.id;
 		const payload = req.body as ITaskPayload;

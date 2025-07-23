@@ -22,11 +22,11 @@ export default class User extends Model {
 	@Column
 	username: string;
 
-	@Column
-	first_name: string;
+	@Column({ field: 'first_name' })
+	firstName: string;
 
-	@Column
-	last_name: string;
+	@Column({ field: 'last_name' })
+	lastName: string;
 
 	@Column
 	email: string;

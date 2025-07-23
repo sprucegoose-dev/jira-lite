@@ -17,6 +17,7 @@ app.use(cors());
 
 app.get('/status', StatusesController.getStatuses);
 app.get('/task', TasksController.getTasks);
+app.post('/task/', TasksController.createTask);
 app.post('/task/:id', TasksController.updateTask);
 app.delete('/task/:id', TasksController.deleteTask);
 app.get('/user', UsersController.getUsers);

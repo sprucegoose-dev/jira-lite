@@ -14,8 +14,8 @@ export type IUser = {
 export type ITaskPayload = {
 	description: string;
 	title: string;
-	statusId: string;
-	assigneeId: string;
+	statusId: number;
+	assigneeId: number | null;
 };
 
 export type ITaskResponse = ITaskPayload & {

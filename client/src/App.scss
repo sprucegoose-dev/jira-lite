@@ -1,0 +1,15 @@
+.app {
+  	text-align: center;
+}
+
+.header {
+	display: flex;
+	padding: 15px 15px 0 15px;;
+	justify-content: space-between;
+
+	.page-title {
+		text-align: center;
+		letter-spacing: 0.03em;
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	}
+}
