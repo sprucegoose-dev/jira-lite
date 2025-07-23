@@ -4,15 +4,20 @@ import {
 	CardContent,
 } from '@mui/material';
 
-import { ITaskResponse } from '../../../shared/interfaces';
 import './TaskPreview.scss';
 
-export default function TaskPreview({ title, description}: Pick<ITaskResponse, 'title' | 'description'>) {
+interface ITaskPreviewProps {
+	title: string;
+	description: string;
+	onClick: () => void;
+}
+
+export default function TaskPreview({ title, description, onClick }: ITaskPreviewProps) {
 
 	return (
 		<Card className='card-wrapper'>
 			<CardActionArea>
-				<CardContent className='card-content'>
+				<CardContent className='card-content' onClick={onClick}>
 					<div className='task-title'>
 						{title}
 					</div>

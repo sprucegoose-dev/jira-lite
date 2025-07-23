@@ -1,19 +1,20 @@
 import { Chip, Paper } from '@mui/material';
 
-import { IStatus, ITaskResponse } from '../../../shared/interfaces';
+import { IStatus, ITaskPayload, ITaskResponse } from '../../../shared/interfaces';
 import './TasksTable.scss';
 import TaskPreview from './TaskPreview';
 
 interface ITasksTableProps {
 	tasks: ITaskResponse[];
 	statuses: IStatus[];
+	onEditTask: (task: ITaskResponse) => void;
 }
 
 const statusToClass = (statusType: string) => {
 	return statusType.toLowerCase().replace('_', '-');
 }
 
-export default function TasksTable({ tasks, statuses }: ITasksTableProps) {
+export default function TasksTable({ tasks, statuses, onEditTask }: ITasksTableProps) {
 	const groupedTasks = tasks.reduce((acc: { [key: string]: ITaskResponse[] }, task) => {
 		if (acc[task.status.status]) {
 			acc[task.status.status].push(task);
@@ -38,6 +39,7 @@ export default function TasksTable({ tasks, statuses }: ITasksTableProps) {
 								<TaskPreview
 									title={task.title}
 									description={task.description}
+									onClick={() => onEditTask(task)}
 								/>
 							)}
 						</div>

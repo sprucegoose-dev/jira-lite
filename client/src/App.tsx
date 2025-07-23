@@ -4,7 +4,7 @@ import '@fontsource/roboto/400.css';
 import TasksTable from './components/TasksTable';
 import { Button, Typography } from '@mui/material';
 import TaskForm from './components/TaskForm';
-import { IStatus, ITaskResponse } from '../../shared/interfaces';
+import { IStatus, ITaskPayload, ITaskResponse } from '../../shared/interfaces';
 import { Method } from './api/Api.types';
 import api from './api/Api';
 import './App.scss';
@@ -13,6 +13,7 @@ export default function App() {
 	const [tasks, setTasks] = useState<ITaskResponse[]>([]);
 	const [statuses, setStatuses] = useState<IStatus[]>([]);
 	const [showTaskForm, setShowTaskForm] = useState<boolean>(false);
+	const [editableTask, setEditableTask] = useState<ITaskResponse | null>(null);
 
 	useEffect(() => {
 		const fetchStatuses = async () => {
@@ -31,8 +32,14 @@ export default function App() {
 
 	const onCreateTask = async () => {
 		setShowTaskForm(false);
+		setEditableTask(null);
 		const response = await api.request(Method.GET, '/task');
 		setTasks(await response.json());
+	}
+
+	const openEditTask = (task: ITaskResponse) => {
+		setEditableTask(task);
+		setShowTaskForm(true);
 	}
 
 	return (
@@ -52,11 +59,13 @@ export default function App() {
 			<TasksTable
 				tasks={tasks}
 				statuses={statuses}
+				onEditTask={openEditTask}
 			/>
 			<TaskForm
 				open={showTaskForm}
 				onClose={onCreateTask}
 				statuses={statuses}
+				task={editableTask}
 			/>
 		</div>
 	);

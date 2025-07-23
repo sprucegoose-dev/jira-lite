@@ -9,31 +9,47 @@ import {
   InputLabel,
   FormControl,
   FormHelperText,
+  Typography,
 } from '@mui/material';
 
 import api from '../api/Api';
 import { Method } from '../api/Api.types';
 
-import { IStatus, ITaskPayload, IUser } from '../../../shared/interfaces';
-import './TaskPreview.scss';
+import {
+	IStatus,
+	ITaskPayload,
+	ITaskResponse,
+	IUser
+} from '../../../shared/interfaces';
+import './TaskForm.scss';
 
 
 interface IModalProps {
   open: boolean;
   onClose: () => void;
   statuses: IStatus[];
+  task: ITaskResponse | null;
 }
 
-export default function TaskForm({ open, onClose, statuses }: IModalProps) {
+export default function TaskForm({ open, onClose, statuses, task }: IModalProps) {
   const [assignees, setAssignees] = useState<IUser[]>([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [assigneeId, setAssigneeId] = useState<number | null>(null);
   const [statusId, setStatusId] = useState<number | null>(null);
+  const [taskId, setTaskId] = useState<number | null>(null);
   const [errors, setErrors] = useState<{ title?: string; status?: string }>({});
 
   useEffect(() => {
-    if (!open) return;
+	if (!open) {
+		setTitle('');
+		setDescription('');
+		setAssigneeId(null);
+		setStatusId(null);
+		setTaskId(null);
+		setErrors({});
+		return;
+	}
 
     const fetchAssignees = async () => {
 		const response = await api.request(Method.GET, '/user');
@@ -41,7 +57,15 @@ export default function TaskForm({ open, onClose, statuses }: IModalProps) {
     };
 
     fetchAssignees();
-  }, [open]);
+
+	if (task) {
+		setTitle(task.title);
+		setDescription(task.description);
+		setAssigneeId(task.assigneeId);
+		setStatusId(task.statusId);
+		setTaskId(task.id);
+	}
+  }, [open, task]);
 
   const validate = () => {
     const newErrors: { title?: string; status?: string } = {};
@@ -72,13 +96,8 @@ export default function TaskForm({ open, onClose, statuses }: IModalProps) {
     };
 
     try {
-      await api.request(Method.POST, '/task', {payload});
+      await api.request(Method.POST, `/task${taskId ? `/${taskId}` : ''}`, {payload});
       onClose();
-	  setTitle('');
-	  setDescription('');
-	  setAssigneeId(null);
-	  setStatusId(null);
-      setErrors({});
     } catch (error) {
       console.error('Failed to create task:', error);
     }
@@ -89,22 +108,12 @@ export default function TaskForm({ open, onClose, statuses }: IModalProps) {
       <Box
         component="form"
         onSubmit={handleSubmit}
-        sx={{
-          position: 'absolute' as const,
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          bgcolor: 'background.paper',
-          borderRadius: 1,
-          boxShadow: 24,
-          p: 4,
-          minWidth: 300,
-          maxWidth: 400,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-        }}
-      >
+		className='task-form-modal'
+	>
+		<Typography variant="h6" className="form-title">
+        	{task?.title || 'Create New Task'}
+        </Typography>
+
         <TextField
           label="Title"
           value={title}
@@ -161,7 +170,7 @@ export default function TaskForm({ open, onClose, statuses }: IModalProps) {
         </FormControl>
 
         <Button variant="contained" type="submit" disabled={!title || !statusId}>
-          Create Task
+          {`${task ? 'Update' : 'Create'} Task`}
         </Button>
       </Box>
     </Modal>

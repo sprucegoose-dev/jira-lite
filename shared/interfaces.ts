@@ -19,6 +19,7 @@ export type ITaskPayload = {
 };
 
 export type ITaskResponse = ITaskPayload & {
+	id: number;
 	status: IStatus;
 	user: IUser;
 };
