@@ -11,7 +11,7 @@ module.exports = {
             title: Sequelize.STRING,
             description: Sequelize.STRING(2000),
             assignee_id: {
-				type: Sequelize.STRING,
+				type: Sequelize.INTEGER,
 			    allowNull: true,
 			},
 			status_id: {
