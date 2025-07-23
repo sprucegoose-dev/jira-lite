@@ -1,0 +1,54 @@
+.grid {
+	display: grid;
+	gap: 8px;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	height: 100vh;
+	overflow: hidden;
+	width: 100vw;
+	padding: 15px;
+	box-sizing: border-box;
+
+	.grid-item {
+		height: 100%;
+
+		.column {
+			height: 100%;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			flex-direction: column;
+			border-radius: 5px;
+		}
+
+		.column-header {
+			font-weight: bold;
+			margin: 10px auto;
+
+			// TODO: colors should be assigned to variables for re-use
+
+			&.to-do {
+				border-color: #90CAF9;
+			}
+
+			&.in-progress {
+				border-color: #FFD54F;
+			}
+
+			&.in-review {
+				border-color: #B39DDB;
+			}
+
+			&.resolved {
+				border-color: #A5D6A7;
+			}
+
+			&.closed {
+				border-color: #B0BEC5;
+			}
+
+			&.input-required {
+				border-color: #F48FB1;
+			}
+		}
+	}
+}

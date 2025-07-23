@@ -1,8 +1,10 @@
 import {
 	BelongsTo,
 	Column,
+	CreatedAt,
 	Model,
 	Table,
+	UpdatedAt,
 } from 'sequelize-typescript';
 import Status from './status.model';
 import User from './user.model';
@@ -39,7 +41,15 @@ export default class Task extends Model {
 	})
 	statusId: number;
 
-	@BelongsTo(() => User, 'assigneId')
+    @CreatedAt
+    @Column({ field: 'created_at' })
+    createdAt: Date;
+
+    @UpdatedAt
+    @Column({ field: 'updated_at' })
+    updatedAt: Date;
+
+	@BelongsTo(() => User, 'assigneeId')
 	assignee: User;
 
 	@BelongsTo(() => Status, 'statusId')

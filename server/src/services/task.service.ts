@@ -1,4 +1,4 @@
-import { ITaskPayload } from '../interfaces/task.interface';
+import { ITaskPayload } from '../../../shared/interfaces';
 import Task from '../models/task.model';
 
 export default class TaskService {

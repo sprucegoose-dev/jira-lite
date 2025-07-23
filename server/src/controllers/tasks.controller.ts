@@ -5,7 +5,7 @@ import Status from '../models/status.model';
 import User from '../models/user.model';
 import TaskService from '../services/task.service';
 
-import { ITaskPayload } from '../interfaces/task.interface';
+import { ITaskPayload } from '../../../shared/interfaces';
 
 class TasksController {
 
@@ -14,11 +14,11 @@ class TasksController {
 			include: [
                 {
                     model: User,
-                    as: 'players',
+                    as: 'assignee',
                 },
 				{
                     model: Status,
-                    as: 'players',
+                    as: 'status',
                 },
             ]
 		});
