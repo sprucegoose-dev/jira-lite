@@ -1,6 +1,6 @@
 import { Chip, Paper } from '@mui/material';
 
-import { IStatus, ITaskPayload, ITaskResponse } from '../../../shared/interfaces';
+import { IStatus, ITaskResponse } from '../../../shared/interfaces';
 import './TasksTable.scss';
 import TaskPreview from './TaskPreview';
 

@@ -4,7 +4,7 @@ import '@fontsource/roboto/400.css';
 import TasksTable from './components/TasksTable';
 import { Button, Typography } from '@mui/material';
 import TaskForm from './components/TaskForm';
-import { IStatus, ITaskPayload, ITaskResponse } from '../../shared/interfaces';
+import { IStatus, ITaskResponse } from '../../shared/interfaces';
 import { Method } from './api/Api.types';
 import api from './api/Api';
 import './App.scss';
