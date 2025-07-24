@@ -18,6 +18,7 @@
 			align-items: center;
 			flex-direction: column;
 			border-radius: 5px;
+			padding: 0 10px;
 		}
 
 		.column-header {
@@ -49,6 +50,10 @@
 			&.input-required {
 				border-color: #F48FB1;
 			}
+		}
+
+		.task-list {
+			width: 100%;
 		}
 	}
 }
